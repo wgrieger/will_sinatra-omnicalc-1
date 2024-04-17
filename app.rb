@@ -17,6 +17,14 @@ get("/square_root/new") do
   erb(:sqrt)
 end
 
+get("/square_root/results")do
+@input_sqrt=params.fetch(:user_number).to_f
+@result_sqrt= Math.sqrt(@input_sqrt)
+
+erb(:sqrt_results)
+end
+
+#payment
 get("/payment/new") do
   erb(:payment)
     
