@@ -31,17 +31,17 @@ get("/payment/new") do
 end
 
 get("/payment/results")do
-@apr_input=params.fetch(:user_apr).to_f
-@years_input_preconversion=params.fetch(:user_years).to_f
+@user_apr=params.fetch(:user_apr).to_f
+@apr_input=sprintf("%.4f%%", @user_apr)
+@years_input_preconversion=params.fetch(:user_years).to_i
 @principal_input=params.fetch(:user_pv).to_f
 @years_input_months=@years_input_preconversion*12
-
-
-@r=@apr_input/100/12
+@display_dollar= @principal_input.to_fs(:currency)
+@r=@user_apr/100/12
 @part_denominator=(1+@r)**(-@years_input_months)
 
 @payment_output= (@r*@principal_input)/(1-@part_denominator)
-@payment_output_rounded=@payment_output.round(2)
+@payment_output_rounded=@payment_output.round(2).to_fs(:currency)
 
   erb(:payment_results)
 end
