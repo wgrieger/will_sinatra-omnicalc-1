@@ -30,8 +30,19 @@ get("/payment/new") do
     
 end
 
+#random
 get("/random/new") do
   erb(:random)
       
 end
+
+get("/random/results")do
+@input_min=params.fetch(:user_min).to_f
+@input_max=params.fetch(:user_max).to_f
+
+@random_number= rand(@input_min..@input_max)
+
+erb(:random_results)
+end
+
   
